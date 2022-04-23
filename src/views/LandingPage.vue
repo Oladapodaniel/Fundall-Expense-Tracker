@@ -5,8 +5,12 @@
             <img src="../assets/Fundall-MintGreen-Lockup.svg"/>
         </div>
         <div class="d-flex">
-            <div class="login-btn">LOG IN</div>
-            <div class="sign-up">SIGN UP</div>
+            <router-link :to="{ name: 'Login' }" class="login-btn">
+                <div>LOG IN</div>
+            </router-link>
+            <router-link :to="{ name: 'SignUp' }" class="sign-up">
+                <div>SIGN UP</div>
+            </router-link>
         </div>
       </div>
       <div class="d-flex justify-content-center mt-100">
@@ -33,6 +37,7 @@ export default {
         font-size: 18px;
         line-height: 23px;
         padding: 10px 15px;
+        color: #000000;
     }
 
     .sign-up {
@@ -41,6 +46,7 @@ export default {
         padding: 10px 15px;
         font-size: 18px;
         line-height: 23px;
+        color: #000000;
     }
 
     .mt-100 {

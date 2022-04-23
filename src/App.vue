@@ -32,6 +32,10 @@ export default {
   margin-top: 60px; */
 }
 
+/* body {
+  border: 2px solid red
+} */
+
 .container-top {
   margin-top: 30px
 }
