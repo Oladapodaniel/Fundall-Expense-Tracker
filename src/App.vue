@@ -1,12 +1,8 @@
 <template>
-  <!-- <img alt="Vue logo" src="./assets/logo.png"> -->
-  <!-- <HelloWorld msg="Welcome to Your Vue.js App"/> -->
   <router-view />
 </template>
 
 <script>
-// import HelloWorld from './components/HelloWorld.vue'
-
 export default {
   name: 'App',
   components: {
@@ -32,11 +28,26 @@ export default {
   margin-top: 60px; */
 }
 
-/* body {
-  border: 2px solid red
-} */
-
 .container-top {
-  margin-top: 30px
+  padding-top: 30px
+}
+
+body {
+  line-height: 1.3;
+}
+
+input::-webkit-input-placeholder {/* Chrome/Opera/Safari/Edge */
+	font-style: italic;
+    color: #c4c5c3
+}
+
+input::-ms-input-placeholder { /* Microsoft Edge */
+    font-style: italic;
+    color: #c4c5c3
+}
+
+input:-ms-input-placeholder {/* IE 10+ */
+	font-style: italic;
+    color: #c4c5c3
 }
 </style>

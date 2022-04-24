@@ -1,71 +1,73 @@
 <template>
-  <div class="container-fluid">
-      <div class="d-flex justify-content-between">
-        <div>
-            <img src="../assets/Fundall-MintGreen-Lockup.svg"/>
+  <div class="container-fluid container-top">
+      <div class="container">
+          <div class="d-flex justify-content-between">
+            <div>
+                <img src="../assets/Fundall-MintGreen-Lockup.svg"/>
+            </div>
         </div>
-      </div>
-      <div class="row align-items-center">
-          <div class="col-md-6">
-            <div class="d-flex flex-column align-items-center">
-                <img src="../assets/avatar.svg" />
-                <div class="text-center mt-5">
-                    <span class="welcome-back">Welcome! </span>
-                    <span class=" miss-you">Let's get to know you.</span>
-                </div>
-                <div class="font-21 mt-4 text-center">
-                    Your first step towards a better financial lifestyle starts here.
+        <div class="row align-items-center">
+            <div class="col-md-6">
+                <div class="d-flex flex-column align-items-center">
+                    <img src="../assets/avatar.svg" />
+                    <div class="text-center mt-5">
+                        <span class="welcome-back">Welcome! </span>
+                        <span class=" miss-you">Let's get to know you.</span>
+                    </div>
+                    <div class="font-21 mt-4 text-center">
+                        Your first step towards a better financial lifestyle starts here.
+                    </div>
                 </div>
             </div>
-          </div>
-          <div class="col-md-6 col-lg-5 col-xl-4 card-bg mt-4 mt-md-0">
-              <form>
-                <div class="row label">
-                    <div class="col-sm-6">
-                        <div>First Name</div>
-                        <input class="input-field w-100 mt-2" placeholder="Enter First Name"/>
+            <div class="col-md-6 col-lg-5 card-bg mt-4 mt-md-0">
+                <form>
+                    <div class="row label">
+                        <div class="col-sm-6">
+                            <div>First Name</div>
+                            <input class="input-field w-100 mt-2" placeholder="Enter First Name"/>
+                        </div>
+                        <div class="col-sm-6 mt-4 mt-sm-0">
+                            <div>Last Name</div>
+                            <input class="input-field w-100 mt-2" placeholder="Enter Last Name"/>
+                        </div>
                     </div>
-                    <div class="col-sm-6 mt-4 mt-sm-0">
-                        <div>Last Name</div>
-                        <input class="input-field w-100 mt-2" placeholder="Enter Last Name"/>
+                    <div class="row mt-4 label">
+                        <div class="col-12 mb-2">Email address</div>
+                        <div class="col-12">
+                            <input class="input-field w-100" placeholder="Enter Email"/>
+                        </div>
                     </div>
-                </div>
-                <div class="row mt-4 label">
-                    <div class="col-12 mb-2">Email address</div>
-                    <div class="col-12">
-                        <input class="input-field w-100" placeholder="Enter Email"/>
+                    <div class="row mt-4 label">
+                        <div class="col-12 mb-2">Password</div>
+                        <div class="col-12">
+                            <input class="input-field w-100" placeholder="Enter password"/>
+                        </div>
                     </div>
-                </div>
-                <div class="row mt-4 label">
-                    <div class="col-12 mb-2">Password</div>
-                    <div class="col-12">
-                        <input class="input-field w-100" placeholder="Enter password"/>
+                    <div class="row mt-4 label">
+                        <div class="col-12 mb-2">Confirm password</div>
+                        <div class="col-12">
+                            <input class="input-field w-100" placeholder="Confirm password"/>
+                        </div>
+                        <div class="col-12 ">
+                            <button class="signup-btn w-100">SIGN UP</button>
+                        </div>
                     </div>
-                </div>
-                <div class="row mt-4 label">
-                    <div class="col-12 mb-2">Confirm password</div>
-                    <div class="col-12">
-                        <input class="input-field w-100" placeholder="Confirm password"/>
+                    <div class="row mt-4">
+                        <div class="col-12 text-center">
+                            <span>Already have an account? </span>
+                            <span class="register-color">Login here</span>
+                        </div>
                     </div>
-                    <div class="col-12 ">
-                        <button class="signup-btn w-100">SIGN UP</button>
-                    </div>
-                </div>
-                <div class="row mt-4">
-                    <div class="col-12 text-center">
-                        <span>Already have an account? </span>
-                        <span class="register-color">Login here</span>
-                    </div>
-                </div>
-              </form>
-          </div>
-          <div class="col-6"></div>
-          <div class="col-md-6 col-lg-5 col-xl-4 my-3">
-              <div class="col-12 text-center mt-3 click-link">
-                <span>By clicking on this Login, you agree to our </span>
-                <span>Terms &amp; Conditions and Privacy Policy</span>
+                </form>
             </div>
-          </div>
+            <div class="col-6"></div>
+            <div class="col-md-6 col-lg-5 my-3">
+                <div class="col-12 text-center mt-3 click-link">
+                    <span>By clicking on this Login, you agree to our </span>
+                    <span>Terms &amp; Conditions and Privacy Policy</span>
+                </div>
+            </div>
+        </div>
       </div>
   </div>
 </template>
@@ -79,11 +81,7 @@ export default {
 <style scoped>
 
   .container-fluid{
-     /* border: 2px solid red; */
      background: #FCFBFC;
-     padding: 30px 70px;
-     height: 100vh
-     /* padding-left: 70px; */
  }
 
  .card-bg {
@@ -150,21 +148,6 @@ export default {
     font-weight: 800;
  }
 
- input::-webkit-input-placeholder {/* Chrome/Opera/Safari/Edge */
-	font-style: italic;
-    color: #c4c5c3
-}
-
-input::-ms-input-placeholder { /* Microsoft Edge */
-    font-style: italic;
-    color: #c4c5c3
-}
-
-input:-ms-input-placeholder {/* IE 10+ */
-	font-style: italic;
-    color: #c4c5c3
-}
-
 .font-21 {
     font-size: 21px;
 }
@@ -174,9 +157,9 @@ input:-ms-input-placeholder {/* IE 10+ */
          padding: 30px;
      }
 
-     .container-fluid {
+     /* .container-fluid {
          padding: 30px 30px;
-     }
+     } */
  }
 
 

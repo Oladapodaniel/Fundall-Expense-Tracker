@@ -1,29 +1,31 @@
 <template>
-  <div class="container container-top">
-      <div class="d-flex justify-content-between">
-        <div>
-            <img src="../assets/Fundall-MintGreen-Lockup.svg"/>
+    <div class="container-fluid container-top">
+         <div class="container">
+        <div class="d-flex justify-content-between">
+            <div>
+                <img src="../assets/Fundall-MintGreen-Lockup.svg"/>
+            </div>
+            <div class="d-flex">
+                <router-link :to="{ name: 'Login' }" class="login-btn">
+                    <div>LOG IN</div>
+                </router-link>
+                <router-link :to="{ name: 'SignUp' }" class="sign-up">
+                    <div>SIGN UP</div>
+                </router-link>
+            </div>
         </div>
-        <div class="d-flex">
-            <router-link :to="{ name: 'Login' }" class="login-btn">
-                <div>LOG IN</div>
-            </router-link>
-            <router-link :to="{ name: 'SignUp' }" class="sign-up">
-                <div>SIGN UP</div>
-            </router-link>
+        <div class="d-flex justify-content-center mt-100">
+            <img src="../assets/avatar.svg" class="avatar"/>
         </div>
-      </div>
-      <div class="d-flex justify-content-center mt-100">
-          <img src="../assets/avatar.svg" class="avatar"/>
-      </div>
-      <div class="d-flex flex-column align-items-center mt-100">
-          <div class="fundall-header">Fundall Expense Tracker</div>
-          <div class="fundall-subheader">Mini Project Frontend</div>
-      </div>
-      <div class="d-flex flex-column align-items-center mt-4">
-          <div class="author">by Oladapo Daniel</div>
-      </div>
-  </div>
+        <div class="d-flex flex-column align-items-center mt-100">
+            <div class="fundall-header">Fundall Expense Tracker</div>
+            <div class="fundall-subheader">Mini Project Frontend</div>
+        </div>
+        <div class="d-flex flex-column align-items-center mt-4">
+            <div class="author">by Oladapo Daniel</div>
+        </div>
+    </div>
+    </div>
 </template>
 
 <script>
@@ -33,6 +35,10 @@ export default {
 </script>
 
 <style scoped>
+    .container-fluid{
+        background: #FCFBFC;
+    }
+
     .login-btn {
         font-size: 18px;
         line-height: 23px;
