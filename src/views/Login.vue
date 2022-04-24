@@ -15,7 +15,7 @@
                 </div>
             </div>
             <div class="col-md-6 col-lg-5 card-bg mt-4 mt-md-0">
-                <form>
+                <form @submit.prevent="loginUser">
                     <div class="row holla">
                         <div class="col-12">Holla</div>
                         <div class="col-12">Sign in to the vibe</div>
@@ -23,22 +23,24 @@
                     <div class="row label">
                         <div class="col-12 mb-2">Email or Username</div>
                         <div class="col-12">
-                            <input class="input-field w-100" placeholder="Enter email"/>
+                            <input type="email" class="input-field w-100" placeholder="Enter email" autocomplete="email" v-model="userDetails.email"/>
                         </div>
                     </div>
                     <div class="row mt-4 label">
                         <div class="col-12 mb-2">Password</div>
                         <div class="col-12">
-                            <input class="input-field w-100" placeholder="Enter password"/>
+                            <input type="password" class="input-field w-100" placeholder="Enter password" autocomplete="new-password" v-model="userDetails.password"/>
                         </div>
                         <div class="col-12 label">
-                            <button class="login-btn w-100">LOGIN</button>
+                            <button class="login-btn w-100 c-pointer">LOGIN</button>
                         </div>
                     </div>
                     <div class="row mt-4">
                         <div class="col-12 text-center">
                             <span>Don't have an account? </span>
-                            <span class="register-color">Register here</span>
+                            <router-link :to="{ name: 'SignUp' }" class="style-routerlink">
+                                <span class="register-color">Register here</span>
+                            </router-link>
                         </div>
                         <div class="col-12 text-center mt-3 click-link">
                             <span>By clicking on this login, you agree to our </span>
@@ -54,8 +56,31 @@
 </template>
 
 <script>
+import { reactive } from '@vue/reactivity'
+import axios from '@/gateway/backendapi'
+import router from '@/router/index'
 export default {
+    setup () {
+        const userDetails = reactive({})
 
+        const loginUser = async () => {
+            try {
+                let { data } = await axios.post('/api/v1/login', userDetails)
+                console.log(data)
+                // Save token to local storage
+                localStorage.setItem('token', data.success.user.access_token)
+                router.push( { name: 'Dashboard' } )
+            }
+            catch (err) {
+                console.log(err)
+            }
+        }
+
+        return {
+            userDetails,
+            loginUser
+        }
+    }
 }
 </script>
 
@@ -63,9 +88,9 @@ export default {
 
   .container-fluid{
      /* border: 2px solid red; */
-     /* background: #FCFBFC;
-     padding: 30px 70px;
-     height: 100vh */
+     background: #FCFBFC;
+     /* padding: 30px 70px; */
+     height: 100vh
      /* padding-left: 70px; */
  }
 
@@ -131,6 +156,11 @@ export default {
     font-size: 40px;
     font-weight: 800;
  }
+
+
+.style-routerlink, .style-routerlink:hover {
+    text-decoration: none;
+}
 
  @media (max-width: 578px) {
      .card-bg {

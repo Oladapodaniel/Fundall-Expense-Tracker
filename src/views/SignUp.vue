@@ -20,42 +20,44 @@
                 </div>
             </div>
             <div class="col-md-6 col-lg-5 card-bg mt-4 mt-md-0">
-                <form>
+                <form @submit.prevent="registerUser">
                     <div class="row label">
                         <div class="col-sm-6">
                             <div>First Name</div>
-                            <input class="input-field w-100 mt-2" placeholder="Enter First Name"/>
+                            <input type="text" class="input-field w-100 mt-2" placeholder="Enter First Name" v-model="userDetails.firstname" autocomplete="firstname"/>
                         </div>
                         <div class="col-sm-6 mt-4 mt-sm-0">
                             <div>Last Name</div>
-                            <input class="input-field w-100 mt-2" placeholder="Enter Last Name"/>
+                            <input type="text" class="input-field w-100 mt-2" placeholder="Enter Last Name" v-model="userDetails.lastname" autocomplete="lastname"/>
                         </div>
                     </div>
                     <div class="row mt-4 label">
                         <div class="col-12 mb-2">Email address</div>
                         <div class="col-12">
-                            <input class="input-field w-100" placeholder="Enter Email"/>
+                            <input type="email" class="input-field w-100" placeholder="Enter Email" v-model="userDetails.email" autocomplete="email"/>
                         </div>
                     </div>
                     <div class="row mt-4 label">
                         <div class="col-12 mb-2">Password</div>
                         <div class="col-12">
-                            <input class="input-field w-100" placeholder="Enter password"/>
+                            <input type="password" class="input-field w-100" placeholder="Enter password" v-model="userDetails.password" autocomplete="new-password"/>
                         </div>
                     </div>
                     <div class="row mt-4 label">
                         <div class="col-12 mb-2">Confirm password</div>
                         <div class="col-12">
-                            <input class="input-field w-100" placeholder="Confirm password"/>
+                            <input type="password" class="input-field w-100" placeholder="Confirm password" v-model="userDetails.password_confirmation" autocomplete="new-password"/>
                         </div>
                         <div class="col-12 ">
-                            <button class="signup-btn w-100">SIGN UP</button>
+                            <button class="signup-btn w-100 c-pointer">SIGN UP</button>
                         </div>
                     </div>
                     <div class="row mt-4">
                         <div class="col-12 text-center">
                             <span>Already have an account? </span>
-                            <span class="register-color">Login here</span>
+                            <router-link :to="{ name: 'Login' }" class="style-routerlink">
+                                <span class="register-color">Login here</span>
+                            </router-link>
                         </div>
                     </div>
                 </form>
@@ -70,11 +72,44 @@
         </div>
       </div>
   </div>
+  <div class="toast" role="alert" aria-live="assertive" aria-atomic="true">
+  <div class="toast-header">
+    <!-- <img src="..." class="rounded mr-2" alt="..."> -->
+    <strong class="mr-auto">Bootstrap</strong>
+    <small>11 mins ago</small>
+    <button type="button" class="ml-2 mb-1 close" data-dismiss="toast" aria-label="Close">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+  <div class="toast-body">
+    Hello, world! This is a toast message.
+  </div>
+</div>
 </template>
 
 <script>
+import { reactive } from '@vue/reactivity'
+import axios from '@/gateway/backendapi'
 export default {
+    setup () {
+        const userDetails = reactive({})
 
+
+        const registerUser = async () => {
+            try {
+                let response = await axios.post('/api/v1/register', userDetails)
+                console.log(response)
+            }
+            catch (err) {
+                console.log(err)
+            }
+        }
+
+        return {
+            userDetails,
+            registerUser
+        }
+    }
 }
 </script>
 
@@ -150,6 +185,11 @@ export default {
 
 .font-21 {
     font-size: 21px;
+}
+
+
+.style-routerlink, .style-routerlink:hover {
+    text-decoration: none;
 }
 
  @media (max-width: 578px) {

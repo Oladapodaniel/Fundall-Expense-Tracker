@@ -50,4 +50,8 @@ input:-ms-input-placeholder {/* IE 10+ */
 	font-style: italic;
     color: #c4c5c3
 }
+
+.c-pointer {
+  cursor: pointer;
+}
 </style>
