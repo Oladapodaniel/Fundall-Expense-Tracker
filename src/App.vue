@@ -54,4 +54,8 @@ input:-ms-input-placeholder {/* IE 10+ */
 .c-pointer {
   cursor: pointer;
 }
+
+.c-not-allowed {
+  cursor: not-allowed;
+}
 </style>

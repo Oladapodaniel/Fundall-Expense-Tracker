@@ -1,4 +1,5 @@
 <template>
+{{ disabled }}hereeee
   <div
     class="
       d-flex
@@ -20,7 +21,7 @@
     <div class="row mt-4 label">
       <div class="col-12 mb-2">Target Monthly Expenses</div>
       <div class="col-12 col-sm-9">
-        <input type="text" v-model="totalTarget" class="input-field w-100" />
+        <input type="text" v-model="totalTarget" class="input-field w-100" @input="updateTotalTarget" />
       </div>
     </div>
     <div class="row mt-4 label">
@@ -100,7 +101,7 @@
       </div>
     </div>
     <div class="d-flex justify-content-center mt-4">
-      <button class="save-expense c-pointer" @click="saveExpenditureData">
+      <button class="save-expense" :class="{ 'c-pointer' : !disabled, 'c-not-allowed' : disabled }" @click="saveExpenditureData" :disabled="disabled">
         SAVE TODAY'S EXPENSES
       </button>
     </div>
@@ -112,7 +113,7 @@ import { reactive, ref } from "@vue/reactivity";
 import { watchEffect } from "@vue/runtime-core";
 export default {
   name: "AddExpense",
-  props: ["userProfile"],
+  props: ["userProfile", "disabled"],
   emits: ["summedExpense"],
   setup(props, { emit }) {
     const totalTarget = ref("");
@@ -168,6 +169,10 @@ export default {
       thirdData.date = new Date(e.target.value).toLocaleDateString();
     };
 
+    const updateTotalTarget = () => {
+      emit('updateTarget', totalTarget.value)
+    }
+
     return {
       totalTarget,
       firstData,
@@ -179,6 +184,7 @@ export default {
       sumAmount,
       addAmount,
       setExpenseDate,
+      updateTotalTarget
     };
   },
 };

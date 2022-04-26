@@ -116,6 +116,8 @@
           <AddExpense
             :userProfile="userProfile"
             @summedExpense="setTotalValue"
+            @updateTarget="updateTotalTarget"
+            :disabled="disabled"
           />
         </div>
       </div>
@@ -151,6 +153,7 @@ export default {
     const expensesArr = ref([]);
     const paginatedValues = ref([]);
     const hoverImage = ref(false)
+    const disabled = ref(false)
     const expenditureData = ref(
       JSON.parse(localStorage.getItem("expense"))
         ? JSON.parse(localStorage.getItem("expense"))
@@ -223,18 +226,18 @@ export default {
         ? JSON.parse(localStorage.getItem("expense")).reduce((a, b) => {
             return { amount: a.amount + b.amount };
           })
-        : [];
-      console.log(summedTotal);
+        : { amount: 0 };
 
       if (
-        +payload + summedTotal.amount >
+        (+payload + summedTotal.amount) >
         +userProfile.value.total_balance.split(",").join("")
       ) {
+          disabled.value = true
         toast.info("Amount already exceeds monthly target expense", {
           timeout: 4000,
         });
       } else {
-        console.log("not exceeeded");
+          disabled.value = false
       }
     };
 
@@ -249,6 +252,10 @@ export default {
 
     const setLeave = () => {
         hoverImage.value = false
+    }
+
+    const updateTotalTarget = (payload) => {
+        userProfile.value.total_balance = payload
     }
 
     return {
@@ -267,7 +274,9 @@ export default {
       logout,
       setLeave,
       setHover,
-      hoverImage
+      hoverImage,
+      updateTotalTarget,
+      disabled
     };
   },
 };
