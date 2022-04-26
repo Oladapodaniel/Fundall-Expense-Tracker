@@ -12,7 +12,7 @@ export default {
 </script>
 
 <style>
-@import url('http://fonts.cdnfonts.com/css/circular-std');
+@import url('https://fonts.cdnfonts.com/css/circular-std');
 
 /* @font-face {
   font-family: "Circular Std";
