@@ -59,20 +59,27 @@
 import { reactive } from '@vue/reactivity'
 import axios from '@/gateway/backendapi'
 import router from '@/router/index'
+import { useToast } from "vue-toastification";
 export default {
     setup () {
         const userDetails = reactive({})
+        const toast = useToast();
 
         const loginUser = async () => {
             try {
                 let { data } = await axios.post('/api/v1/login', userDetails)
                 console.log(data)
+                toast.success(`Welcome back, ${data.success.user.firstname}`, {
+                    timeout: 4000
+                });
                 // Save token to local storage
                 localStorage.setItem('token', data.success.user.access_token)
                 router.push( { name: 'Dashboard' } )
             }
             catch (err) {
-                console.log(err)
+                toast.error(err.response.data.error.message, {
+                    timeout: 4000
+                });
             }
         }
 

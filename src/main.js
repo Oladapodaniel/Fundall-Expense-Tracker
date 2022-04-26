@@ -2,6 +2,9 @@ import { createApp } from 'vue'
 import App from './App.vue'
 import router from './router'
 import axios from './gateway/backendapi'
+import Toast from "vue-toastification";
+// Import the CSS or use your own!
+import "vue-toastification/dist/index.css";
 
 axios.interceptors.request.use((config) => {
     if (typeof window === 'undefined') return config;
@@ -15,5 +18,5 @@ axios.interceptors.request.use((config) => {
 
 
 const app = createApp(App)
-
-app.use(router).mount('#app')
+const options = {}
+app.use(router).use(Toast, options).mount('#app')

@@ -37,6 +37,7 @@ export default {
 <style scoped>
     .container-fluid{
         background: #FCFBFC;
+        height: 100vh;
     }
 
     .login-btn {

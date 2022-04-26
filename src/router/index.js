@@ -28,8 +28,19 @@ const routes = [
 ]
 
 const router = createRouter({
-    history: createWebHistory(process.env.BASE_URL),
+    history: createWebHistory(),
     routes
+})
+
+// Route/ Navigation guard
+router.beforeEach((to, from, next) => {
+    const token = localStorage.getItem("token")
+    const tokenIsValid = token && token.length > 30 ? true : false;
+
+    if ((to.name === 'LandingPage' || to.name === 'Login' || to.name === 'SignUp') && tokenIsValid) return next("/dashboard")
+
+    if (to.name !== 'LandingPage' && to.name !== 'Login' && to.name !== 'SignUp' && !tokenIsValid) return next("/")
+    return next(true)
 })
 
 export default router

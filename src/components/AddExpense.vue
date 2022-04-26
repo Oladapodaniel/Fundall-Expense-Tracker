@@ -1,7 +1,7 @@
 <template>
   <div class="d-flex flex-column flex-sm-row justify-content-sm-between align-items-sm-end welcome-card">
     <div class="align-self-center">
-      <span>Welcome back, </span><span>Oladapo</span>
+      <span>Welcome back, </span><span>{{ userProfile.firstname }}</span>
       <div>Now let's get your expenses for this month</div>
     </div>
     <div class="d-none d-sm-block">
@@ -12,13 +12,13 @@
    <div class="row mt-4 label">
       <div class="col-12 mb-2">Target Monthly Expenses</div>
         <div class="col-12 col-sm-9">
-            <input class="input-field w-100"/>
+            <input type="text" v-model="totalTarget" class="input-field w-100"/>
         </div>
     </div>
    <div class="row mt-4 label">
       <div class="col-12 mb-2">Date</div>
         <div class="col-12 col-sm-9">
-            <input class="input-field w-100" type="datetime-local"/>
+            <input class="input-field w-100" type="date" @change="setExpenseDate" />
         </div>
     </div>
     <div class="row">
@@ -26,43 +26,111 @@
     </div>
    <div class="row mt-4 label">
       <div class="col-12 col-sm-7 mb-2">
-        <input class="input-field w-100" type="text" placeholder="Enter Item"/>
+        <input class="input-field w-100" type="text" placeholder="Enter Item" v-model="firstData.item"/>
       </div>
         <div class="col-12 col-sm-5">
-            <input class="input-field w-100" type="number" placeholder="Enter Amount"/>
+            <input class="input-field w-100" type="number" placeholder="Enter Amount" v-model="firstData.amount" @input="addAmount" />
         </div>
     </div>
    <div class="row mt-4 label">
       <div class="col-12 col-sm-7 mb-2">
-        <input class="input-field w-100" type="text" placeholder="Enter Item"/>
+        <input class="input-field w-100" type="text" placeholder="Enter Item" v-model="secondData.item"/>
       </div>
         <div class="col-12 col-sm-5">
-            <input class="input-field w-100" type="number" placeholder="Enter Amount"/>
+            <input class="input-field w-100" type="number" placeholder="Enter Amount" v-model="secondData.amount" @input="addAmount"/>
         </div>
     </div>
    <div class="row mt-4 label">
       <div class="col-12 col-sm-7 mb-2">
-        <input class="input-field w-100" type="text" placeholder="Enter Item"/>
+        <input class="input-field w-100" type="text" placeholder="Enter Item" v-model="thirdData.item"/>
       </div>
         <div class="col-12 col-sm-5">
-            <input class="input-field w-100" type="number" placeholder="Enter Amount"/>
+            <input class="input-field w-100" type="number" placeholder="Enter Amount" v-model="thirdData.amount" @input="addAmount"/>
         </div>
     </div>
     <div class="d-flex justify-content-end mt-4">
-      <div>Total Actual Expenses: <img src="../assets/naira.svg" /> <input class="input-field gross-total"/></div>
+      <div>Total Actual Expenses: <img src="../assets/naira.svg" /> <input class="input-field gross-total" type="text" v-model="totalAmount"/></div>
     </div>
     <div class="d-flex justify-content-center mt-4">
-      <button class="save-expense">SAVE TODAY'S EXPENSES</button>
+      <button class="save-expense" @click="saveExpenditureData">SAVE TODAY'S EXPENSES</button>
     </div>
   </div>
 </template>
 
 <script>
+import { reactive, ref } from '@vue/reactivity'
+import { watchEffect } from '@vue/runtime-core'
 export default {
   name: 'AddExpense',
-  // props: {
-  //   msg: String
-  // }
+  props: ['userProfile'],
+  emits: ['summedExpense'],
+  setup(props, { emit }) {
+    const totalTarget = ref("")
+    let firstData = reactive({ amount: 0 })
+    let secondData = reactive({ amount: 0 })
+    let thirdData = reactive({ amount: 0 })
+    const allExpenditure = ref([])
+    const totalAmount = ref(0)
+
+    watchEffect(() => {
+      totalTarget.value = props.userProfile.total_balance
+    })
+
+    const saveExpenditureData = () => {
+      allExpenditure.value.push(firstData)
+      allExpenditure.value.push(secondData)
+      allExpenditure.value.push(thirdData)
+
+      if (localStorage.getItem('expense') == null) {
+        const stringedExpense = JSON.stringify(allExpenditure.value)
+        localStorage.setItem('expense', stringedExpense)
+      } else {
+        let parsedExpense = JSON.parse(localStorage.getItem('expense'))
+        parsedExpense.push(firstData)
+        parsedExpense.push(secondData)
+        parsedExpense.push(thirdData)
+        localStorage.setItem('expense', JSON.stringify(parsedExpense))
+      }
+      
+      window.location.reload();
+
+    }
+
+    const sumAmount = () => {
+      console.log('here')
+      let amountList = [+firstData.amount, +secondData.amount, +thirdData.amount]
+      let summedAmountList = amountList.reduce((a,b) => {
+        return a + b
+      })
+      totalAmount.value = summedAmountList
+      emit('summedExpense', totalAmount.value)
+    }
+
+    const addAmount = () => {
+      sumAmount()
+    }
+
+    const setExpenseDate = (e) => {
+      console.log(e.target.value)
+      firstData.date = new Date(e.target.value).toLocaleDateString()
+      secondData.date = new Date(e.target.value).toLocaleDateString()
+      thirdData.date = new Date(e.target.value).toLocaleDateString()
+    }
+    
+
+    return {
+      totalTarget,
+      firstData,
+      secondData,
+      thirdData,
+      saveExpenditureData,
+      allExpenditure,
+      totalAmount,
+      sumAmount,
+      addAmount,
+      setExpenseDate
+    }
+  }
 }
 </script>
 
