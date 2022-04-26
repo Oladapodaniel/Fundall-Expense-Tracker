@@ -1,5 +1,4 @@
 <template>
-{{ disabled }}hereeee
   <div
     class="
       d-flex
